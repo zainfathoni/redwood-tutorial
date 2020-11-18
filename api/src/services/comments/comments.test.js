@@ -12,13 +12,17 @@ describe('comments', () => {
       input: {
         name: 'Billy Bob',
         body: "A tree's bark is worse than its bite",
-        postId: scenario.post.bark.id,
+        post: {
+          connect: {
+            id: scenario.post.bark.id,
+          },
+        },
       },
     })
 
     expect(comment.name).toEqual('Billy Bob')
     expect(comment.body).toEqual("A tree's bark is worse than its bite")
-    expect(comment.postId).toEqual(scenario.post.park.id)
+    expect(comment.postId).toEqual(scenario.post.bark.id)
     expect(comment.createdAt).not.toEqual(null)
   })
 })
