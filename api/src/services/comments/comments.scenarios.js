@@ -1,6 +1,4 @@
-import { scenario } from '@redwoodjs/testing'
-
-export const standard = scenario({
+export const standard = {
   comment: {
     one: {
       name: 'String',
@@ -14,4 +12,4 @@ export const standard = scenario({
       post: { create: { title: 'String', body: 'String' } },
     },
   },
-})
+}
