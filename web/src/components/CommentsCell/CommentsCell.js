@@ -1,4 +1,5 @@
 import Comment from 'src/components/Comment'
+import CommentForm from 'src/components/CommentForm'
 
 export const QUERY = gql`
   query CommentsQuery {

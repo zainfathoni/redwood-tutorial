@@ -17,11 +17,8 @@ const BlogPost = ({ post, summary = false }) => {
         {summary ? truncate(post.body, 100) : post.body}
       </div>
       {!summary && (
-        <div className="mt-12">
-          <h3 className="font-light text-lg text-gray-600">Comments</h3>
-          <div className="mt-12">
-            <CommentsCell />
-          </div>
+        <div className="mt-24">
+          <CommentsCell />
         </div>
       )}
     </article>
