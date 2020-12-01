@@ -1,51 +1,28 @@
-import {
-  comments,
-  comment,
-  createComment,
-  updateComment,
-  deleteComment,
-} from './comments'
+import { comments, createComment } from './comments'
 
 describe('comments', () => {
-  scenario('returns all comments from the database', async (scenario) => {
-    const result = await comments()
+  scenario('returns a list of comments', async (scenario) => {
+    const list = await comments()
 
-    expect(result.length).toEqual(Object.keys(scenario.comment).length)
+    expect(list.length).toEqual(Object.keys(scenario.comment).length)
   })
 
-  scenario('returns a single comment', async (scenario) => {
-    const result = await comment({ id: scenario.comment.one.id })
-
-    expect(result).toEqual(scenario.comment.one)
-  })
-
-  scenario('creates a comment', async (scenario) => {
-    const result = await createComment({
+  scenario('postOnly', 'creates a new comment', async (scenario) => {
+    const comment = await createComment({
       input: {
-        name: 'String',
-        body: 'String',
-        postId: scenario.comment.one.postId,
+        name: 'Billy Bob',
+        body: "A tree's bark is worse than its bite",
+        post: {
+          connect: {
+            id: scenario.post.bark.id,
+          },
+        },
       },
     })
 
-    expect(result.name).toEqual('String')
-    expect(result.body).toEqual('String')
-  })
-
-  scenario('updates a comment', async (scenario) => {
-    const original = await comment({ id: scenario.comment.one.id })
-    const result = await updateComment({
-      id: original.id,
-      input: { name: 'String7937064' },
-    })
-
-    expect(result.name).toEqual('String7937064')
-  })
-
-  scenario('deletes a comment', async (scenario) => {
-    const original = await deleteComment({ id: scenario.comment.one.id })
-    const result = await comment({ id: original.id })
-
-    expect(result).toEqual(null)
+    expect(comment.name).toEqual('Billy Bob')
+    expect(comment.body).toEqual("A tree's bark is worse than its bite")
+    expect(comment.postId).toEqual(scenario.post.bark.id)
+    expect(comment.createdAt).not.toEqual(null)
   })
 })
