@@ -1,6 +1,15 @@
-import { Form, Label, TextField, TextAreaField, Submit } from '@redwoodjs/forms'
+import {
+  Form,
+  FormError,
+  Label,
+  TextField,
+  TextAreaField,
+  Submit,
+} from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
+import { QUERY as CommentsQuery } from 'src/components/CommentsCell'
+import { useState } from 'react'
 
 const CREATE = gql`
   mutation CreateCommentMutation($input: CreateCommentInput!) {
@@ -13,24 +22,42 @@ const CREATE = gql`
   }
 `
 
-const CommentForm = () => {
+const CommentForm = ({ postId }) => {
   const formMethods = useForm()
-  const [createComment, { loading }] = useMutation(CREATE, {
-    onCompleted: formMethods.reset,
+  const [hasPosted, setHasPosted] = useState(false)
+  const [createComment, { loading, error }] = useMutation(CREATE, {
+    onCompleted: () => {
+      formMethods.reset()
+      setHasPosted(true)
+    },
+    refetchQueries: [{ query: CommentsQuery, variables: { postId } }],
   })
 
   const onSubmit = (input) => {
-    createComment({ variables: { input } })
+    createComment({ variables: { input: { postId, ...input } } })
   }
 
   return (
-    <div>
+    <div className="relative">
       <h3 className="font-light text-lg text-gray-600">Leave a Comment</h3>
+      <div
+        className={`${
+          hasPosted ? 'absolute' : 'hidden'
+        } flex items-center justify-center w-full h-full text-lg`}
+      >
+        <h4 className="text-green-500">Thank you for your comment!</h4>
+      </div>
       <Form
-        className="mt-4 w-full"
+        className={`mt-4 w-full ${hasPosted ? 'invisible' : ''}`}
         formMethods={formMethods}
         onSubmit={onSubmit}
+        error={error}
       >
+        <FormError
+          error={error}
+          titleClassName="font-semibold"
+          wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
+        />
         <Label
           name="name"
           className="block text-xs font-semibold text-gray-500 uppercase"

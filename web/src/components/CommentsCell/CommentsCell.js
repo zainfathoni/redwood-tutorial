@@ -1,9 +1,8 @@
 import Comment from 'src/components/Comment'
-import CommentForm from 'src/components/CommentForm'
 
 export const QUERY = gql`
-  query CommentsQuery {
-    comments {
+  query CommentsQuery($postId: Int!) {
+    comments(postId: $postId) {
       id
       name
       body

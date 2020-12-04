@@ -8,9 +8,9 @@ import {
 
 describe('comments', () => {
   scenario('returns all comments from the database', async (scenario) => {
-    const result = await comments()
+    const result = await comments({ postId: scenario.comment.one.postId })
 
-    expect(result.length).toEqual(Object.keys(scenario.comment).length)
+    expect(result.length).toEqual(1)
   })
 
   scenario('returns a single comment', async (scenario) => {
