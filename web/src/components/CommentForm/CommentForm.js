@@ -18,6 +18,7 @@ const CREATE = gql`
       name
       body
       createdAt
+      postId
     }
   }
 `
