@@ -8,9 +8,12 @@ const formattedDate = (datetime) => {
 
 const Comment = ({ comment }) => {
   const { hasRole } = useAuth()
+
   const moderate = () => {
     if (confirm('Are you sure?')) {
       // TODO: delete comment
+      if (confirm('Are you sure?')) {
+      }
     }
   }
 

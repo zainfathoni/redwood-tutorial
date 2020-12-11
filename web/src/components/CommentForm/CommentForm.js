@@ -39,13 +39,13 @@ const CommentForm = ({ postId }) => {
       <h3 className="font-light text-lg text-gray-600">Leave a Comment</h3>
       <div
         className={`${
-          !hasPosted ? 'absolute' : 'hidden'
+          hasPosted ? 'absolute' : 'hidden'
         } flex items-center justify-center w-full h-full text-lg`}
       >
         <h4 className="text-green-500">Thank you for your comment!</h4>
       </div>
       <Form
-        className={`mt-4 w-full ${!hasPosted ? 'invisible' : ''}`}
+        className={`mt-4 w-full ${hasPosted ? 'invisible' : ''}`}
         onSubmit={onSubmit}
       >
         <FormError
