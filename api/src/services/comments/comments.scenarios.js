@@ -1,4 +1,4 @@
-export const standard = {
+export const standard = defineScenario({
   comment: {
     jane: {
       name: 'Jane Doe',
@@ -21,13 +21,13 @@ export const standard = {
       },
     },
   },
-}
+})
 
-export const postOnly = {
+export const postOnly = defineScenario({
   post: {
     bark: {
       title: 'Bark',
       body: 'Sphinx of black quartz, judge my vow.',
     },
   },
-}
+})
