@@ -1,5 +1,4 @@
 import Comment from './Comment'
-import { AuthContext } from '@redwoodjs/auth'
 
 export const defaultView = () => {
   return (
@@ -17,7 +16,6 @@ export const defaultView = () => {
 
 export const moderatorView = () => {
   mockCurrentUser({
-    email: 'test@example.com',
     roles: ['moderator'],
   })
 
