@@ -21,14 +21,11 @@ describe('CommentsCell', () => {
     }).not.toThrow()
   })
 
-  // When you're ready to test the actual output of your component render
-  // you could test that, for example, certain text is present:
-  //
-  //   expect(screen.getByText('Hello, world')).toBeInTheDocument()
-
   it('renders Success successfully', async () => {
-    expect(() => {
-      render(<Success comments={standard().comments} />)
-    }).not.toThrow()
+    const comments = standard().comments
+    render(<Success comments={comments} />)
+    comments.forEach((comment) => {
+      expect(screen.getByText(comment.body)).toBeInTheDocument()
+    })
   })
 })
