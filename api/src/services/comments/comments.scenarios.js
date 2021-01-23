@@ -22,3 +22,12 @@ export const standard = defineScenario({
     },
   },
 })
+
+export const postOnly = defineScenario({
+  post: {
+    bark: {
+      title: 'Bark',
+      body: "A tree's bark is worse than its bite",
+    },
+  },
+})
