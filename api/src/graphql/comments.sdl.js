@@ -23,4 +23,9 @@ export const schema = gql`
     body: String
     postId: Int
   }
+
+  type Mutation {
+    createComment(input: CreateCommentInput!): Comment!
+    deleteComment(id: Int!): Comment!
+  }
 `
