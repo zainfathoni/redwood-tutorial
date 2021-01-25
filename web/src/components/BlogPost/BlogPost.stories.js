@@ -9,6 +9,20 @@ const POST = {
 }
 
 export const full = () => {
+  mockGraphQLQuery('CommentsQuery', (variables) => {
+    const id = parseInt(Math.random() * 1000)
+    return {
+      comments: [
+        {
+          id,
+          name: 'Zain Fathoni',
+          body: 'No comment',
+          postId: variables.postId,
+          createdAt: new Date().toISOString(),
+        },
+      ],
+    }
+  })
   return <BlogPost post={POST} />
 }
 export const summary = () => {
